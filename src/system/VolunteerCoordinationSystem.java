@@ -1,5 +1,6 @@
 package system;
 
+//making imports
 import datastructures.*;
 import model.Volunteer;
 
@@ -8,6 +9,7 @@ public class VolunteerCoordinationSystem {
     private Queue registrationQueue;
     private Stack actionStack;
 
+    //constructor
     public VolunteerCoordinationSystem() {
         volunteers = new LinkedList();
         registrationQueue = new Queue();

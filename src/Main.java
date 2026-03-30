@@ -8,15 +8,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // Pre-load 10 volunteers
-        system.addVolunteer(new Volunteer("V001", "Asel Perera", "Registration Desk", "high"));
-        system.addVolunteer(new Volunteer("V002", "Dineth Rathnayake", "Crowd Control", "medium"));
-        system.addVolunteer(new Volunteer("V003", "Kavindi Silva", "Logistics", "high"));
+        system.addVolunteer(new Volunteer("V001", "Asel Perera", "Registration Desk", "medium"));
+        system.addVolunteer(new Volunteer("V002", "Dineth Rathnayake", "Crowd Control", "high"));
+        system.addVolunteer(new Volunteer("V003", "Kavindi Silva", "Logistics", "medium"));
         system.addVolunteer(new Volunteer("V004", "Thisara Fernando", "First Aid", "high"));
-        system.addVolunteer(new Volunteer("V005", "Senali Jayawardena", "Parking Management", "medium"));
-        system.addVolunteer(new Volunteer("V006", "Ravindu Dissanayake", "Registration Desk", "low"));
+        system.addVolunteer(new Volunteer("V005", "Senali Jayawardena", "Parking Management", "low"));
+        system.addVolunteer(new Volunteer("V006", "Ravindu Dissanayake", "Registration Desk", "medium"));
         system.addVolunteer(new Volunteer("V007", "Imasha Wickramasinghe", "Crowd Control", "high"));
         system.addVolunteer(new Volunteer("V008", "Dulitha Bandara", "Logistics", "medium"));
-        system.addVolunteer(new Volunteer("V009", "Thilini Madushanka", "First Aid", "low"));
+        system.addVolunteer(new Volunteer("V009", "Thilini Madushanka", "First Aid", "high"));
         system.addVolunteer(new Volunteer("V010", "Sachith Gunasekara", "Parking Management", "low"));
 
         int choice;
@@ -32,7 +32,6 @@ public class Main {
             System.out.println("7. Undo Last Action");
             System.out.println("8. Display All Volunteers");
             System.out.println("9. Display Registration Queue");
-            System.out.println("10. Assign by Priority");
             System.out.println("0. Exit");
             System.out.print("Select an option: ");
 
@@ -45,10 +44,30 @@ public class Main {
                     String id = scanner.nextLine();
                     System.out.print("Enter Name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Enter Task (Registration Desk / Crowd Control / Logistics / First Aid / Parking Management): ");
-                    String task = scanner.nextLine();
-                    System.out.print("Enter Priority (low / medium / high): ");
-                    String priority = scanner.nextLine();
+                    System.out.println("Select Task:");
+                    System.out.println("1. Registration Desk (medium)");
+                    System.out.println("2. Crowd Control (high)");
+                    System.out.println("3. Logistics (medium)");
+                    System.out.println("4. First Aid (high)");
+                    System.out.println("5. Parking Management (low)");
+                    System.out.print("Enter task number: ");
+                    int taskChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    String task;
+                    String priority;
+
+                    switch (taskChoice) {
+                        case 1: task = "Registration Desk"; priority = "medium"; break;
+                        case 2: task = "Crowd Control";     priority = "high";   break;
+                        case 3: task = "Logistics";         priority = "medium"; break;
+                        case 4: task = "First Aid";         priority = "high";   break;
+                        case 5: task = "Parking Management";priority = "low";    break;
+                        default:
+                            System.out.println("Invalid task. Volunteer not added.");
+                            continue;
+                    }
+
                     system.addVolunteer(new Volunteer(id, name, task, priority));
                     break;
 
@@ -75,9 +94,19 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.print("Enter Priority to view (low / medium / high): ");
-                    String prio = scanner.nextLine();
-                    system.viewByPriority(prio);
+                    System.out.println("Select Priority:");
+                    System.out.println("1. High");
+                    System.out.println("2. Medium");
+                    System.out.println("3. Low");
+                    System.out.print("Enter choice: ");
+                    int prioChoice = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (prioChoice) {
+                        case 1: system.viewByPriority("high");   break;
+                        case 2: system.viewByPriority("medium"); break;
+                        case 3: system.viewByPriority("low");    break;
+                        default: System.out.println("Invalid choice.");
+                    }
                     break;
 
                 case 7:
@@ -91,23 +120,6 @@ public class Main {
                 case 9:
                     system.displayQueue();
                     break;
-
-                //Added after changing the priority order
-                case 10:
-                System.out.println("Select Priority to assign:");
-                System.out.println("1. High");
-                System.out.println("2. Medium");
-                System.out.println("3. Low");
-                System.out.print("Enter choice: ");
-                int assignPrio = scanner.nextInt();
-                scanner.nextLine();
-                switch (assignPrio) {
-                    case 1: system.assignByPriority("high");   break;
-                    case 2: system.assignByPriority("medium"); break;
-                    case 3: system.assignByPriority("low");    break;
-                    default: System.out.println("Invalid choice.");
-                }
-                break;
 
                 case 0:
                     System.out.println("Exiting system.");
